@@ -7,9 +7,9 @@ on:
   pull_request:
     branches:
       - main
-      
+
 permissions:
-  issues: write
+  pull-request: write
 
 jobs:
   hello-world:
