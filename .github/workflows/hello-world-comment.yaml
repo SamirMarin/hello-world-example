@@ -1,0 +1,27 @@
+name: hello world
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: hello-world
+        id: hello-world
+        run: |
+          echo "Hello World!!!"
+          hello_world="Hello World!!!"
+          echo "value=${hello_world}" >> $GIHTUB_OUTPUT
+
+      - name: Comment on PR
+        uses: peter-evans/create-or-update-comment@v4
+        with: 
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.hello-world.outputs.value }}
