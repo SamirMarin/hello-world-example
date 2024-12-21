@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: hello-universe
-        id: hello-world
+        id: hello-universe
         run: | 
           echo "Hello Universe!!!"
           hello_universe="Hello Universe!!!"
