@@ -18,6 +18,9 @@ on:
         required: false
         default: 'hello world'
 
+permissions:
+  pull-requests: write
+
 jobs:
   hello-world:
     runs-on: ubuntu-latest
