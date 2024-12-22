@@ -7,16 +7,20 @@ on:
   pull_request:
     branches:
       - main
-    #paths:
-    # - 'outputs/**'
+    paths:
+     - '.github/**'
     path-ignore:
-     - 'README.md'
+     - '.github/workflows/hello-world*.yaml'
   workflow_dispatch:
     inputs:
       outputValue:
         description: 'Value to output'
         required: false
         default: 'hello world'
+  repository_dispatch:
+    types: [hello_world]
+  schedule:
+    - cron '1 * * * *'
 
 permissions:
   pull-requests: write
@@ -42,7 +46,7 @@ jobs:
 
 
   hello-universe:
-    needs: [hello-world]
+    #needs: [hello-world]
     runs-on: ubuntu-latest
     steps:
       - name: hello-universe
