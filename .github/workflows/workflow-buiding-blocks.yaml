@@ -9,6 +9,8 @@ on:
       - main
     paths:
      - '.github/**'
+     paths-ignore:
+     - '.github/workflows/hello-world*.yaml'
   workflow_dispatch:
     inputs:
       outputValue:
@@ -18,7 +20,7 @@ on:
   repository_dispatch:
     types: [hello_world]
   schedule:
-    - cron "1 * * * *"
+    - cron: "1 * * * *"
 
 permissions:
   pull-requests: write
