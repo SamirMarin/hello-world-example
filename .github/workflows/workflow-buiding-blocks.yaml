@@ -45,6 +45,7 @@ jobs:
 
 
   hello-universe:
+    needs: [hello-world]
     runs-on: ubuntu-latest
     steps:
       - name: hello-universe
