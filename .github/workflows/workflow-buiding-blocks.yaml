@@ -9,8 +9,6 @@ on:
       - main
     paths:
      - '.github/**'
-    paths-ignore:
-     - '.github/workflows/hello-world*.yaml'
   workflow_dispatch:
     inputs:
       outputValue:
