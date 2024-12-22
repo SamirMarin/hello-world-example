@@ -1,0 +1,73 @@
+name: workflow building blocks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    paths:
+     - '.github/**'
+  workflow_dispatch:
+    inputs:
+      outputValue:
+        description: 'Value to output'
+        required: false
+        default: 'hello world'
+  repository_dispatch:
+    types: [hello_world]
+  schedule:
+    - cron: "1 * * * *"
+
+permissions:
+  pull-requests: write
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: hello-world
+        id: hello-world
+        run: | 
+          echo "Hello World!!!"
+          hello_world="Hello World!!!"
+          echo "value=${hello_world}" >> $GITHUB_OUTPUT
+
+      - name: comment on PR
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.hello-world.outputs.value }}
+
+
+  hello-universe:
+    needs: [hello-world]
+    runs-on: ubuntu-latest
+    steps:
+      - name: hello-universe
+        id: hello-universe
+        run: | 
+          echo "Hello Universe!!!"
+          hello_universe="Hello Universe!!!"
+          echo "value=${hello_universe}" >> $GITHUB_OUTPUT
+
+      - name: comment on PR
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.hello-universe.outputs.value }}
+  
+  hello-dispatch:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: dispatch-output
+        id: hello-world
+        run: | 
+          echo "${{ github.event.inputs.outputValue }}"
