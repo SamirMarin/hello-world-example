@@ -46,6 +46,7 @@ jobs:
       - name: echo when non draft pr
         if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false }}
         run: |
+          # This echos when non draft pr
           echo $NON_DRAFT_PR
         env:
           NON_DRAFT_PR: ${{ format('Hello {0} {1} {2}', 'Draft', 'Is', 'Not') }}
