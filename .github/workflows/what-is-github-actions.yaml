@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  pull-request: write
+
 jobs:
   hello-world:
     runs-on: ubuntu-latest
